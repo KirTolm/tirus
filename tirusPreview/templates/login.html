@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+
+{% if error %}
+  <div class="errorMessage">
+    <div class="alert alert-danger alert-dismissable">
+      <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error!</strong> {{ error }}
+    </div>
+  </div>
+{% endif %}
+
+<div class="form-group">
+    <form action="{{ url_for('admin') }}" method=post class="form-logIn">
+        <h2 class="form-logIn-Title">Пожалуйста, войдите:</h2>
+        <input required type="text" class="form-control" id='form-logIn-Username' placeholder="Username" autofocus name=username>
+        <input required type="password" class="form-control" id='form-logIn-Password' placeholder="Password" name=password>
+        <button class="btn btn-large btn-primary" type="submit">Войти</button>
+    </form>
+</div>
+
+{% endblock %}

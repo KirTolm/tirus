@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block body %}
+
+{% if session.logged_in %}
+<div class="form-group" id="newpost" hidden>
+    <form action="{{ url_for('add_entry') }}" method=post class="form-addEntry" enctype=multipart/form-data>
+        <h2 class="form-addEntry-Title">Новое видео:</h2>
+      <dl>
+        <dt>Заголовок:
+        <dd><input required type="text" size=30 class="form-control" name=title id="form-addEntry-Title">
+        <dt>Код вставки плеера::
+        <dd><textarea required class="form-control" name=content rows=5 cols=40 id="form-addEntry-Text"></textarea>
+        <button class="btn btn-large btn-primary" type="submit">Поделиться</button>
+      </dl>
+    </form>
+</div>
+
+<div class="form-group" id="change" hidden>
+    <form action="{{ url_for('change') }}" method=post class="form-logIn">
+        <h2 class="form-logIn-Title">Изменение учетной записи:</h2>
+        <input required type="text" class="form-control" id='form-logIn-Username' placeholder="Username" name=username>
+        <input required type="password" class="form-control" id='form-logIn-Password' placeholder="Password" name=password>
+        <button class="btn btn-large btn-primary" type="submit">Изменить</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="advs">
+    <h2 class="advstitle">Почему Вам следует работать с нами?</h2>
+    <div class="reasons">
+        <h4 class="advsreason">• Ежедневные обучающие вебинары и трениги</h4>
+        <h4 class="advsreason">• Платформа для заработка с моментальным выводом денег</h4>
+        <h4 class="advsreason">• Автоматизация бизнеса</h4>
+        <h4 class="advsreason">• Офисная программа</h4>
+    </div>
+</div>
+
+<div class="posts">
+    {% for entry in entries %}
+    <div class="post" id="{{ entry.id }}">
+        {% if session.logged_in %}
+            <div class="postButtons">
+                <a class='postEdit' title='Edit post' onclick="postEdit({{ entry.id }});"><span class="glyphicon glyphicon-pencil"></span></a><a class='postDelete' title='Delete post' onclick='postDelete({{ entry.id }});'><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+        {% endif %}
+        <h2 id="postTitle" class="postTitle-{{ entry.id }}">{{ entry.title }}</h2>
+        <div id="postContent" class="postContent-{{ entry.id }}">{{ entry.content|safe }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="invite">
+    <h3 class="invtitle1">ВЫ ГОТОВЫ НАЧАТЬ СВОЙ БИЗНЕС C КОМПАНИЕЙ TIRUS?</h3>
+    <h4 class="invtitle2">Тогда пишите нам в группу в VK!</h4>
+    <a href="https://vk.com/tirusru" class="invbutton">Tirus в ВКонтакте</a>
+</div>
+{% endblock %}

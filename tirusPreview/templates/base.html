@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="static/js/preview.js"></script>
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet type=text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Welcome to Tirus!</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="header">
+                <h1 class="headertitle1">Добро пожаловать в Tirus!</h1>
+                <h3 class="headertitle2">Революционный инновационный проект</h3>
+                <a href="https://tirus.ltd/landing/demjan/" class="headerbutton">Узнать больше</a>
+             </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+            <div class="nav">
+                <h3 class="navtitle">TIRUS</h3>
+                {% if session.logged_in %}
+                    <div class="logoutButton">
+                        <a href="{{ url_for('logout') }}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Выйти</button></a>
+                    </div>
+
+                     <div class="changeButton">
+                         <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Учетная запись</button>
+                     </div>
+
+                      <div class="newpostButton">
+                           <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Новое видео</button>
+                      </div>
+                {% endif %}
+             </div>
+         </div>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+        <div class="flash">
+            <div class="alert alert-info alert-dismissable">
+                  <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% block body %}
+    {% endblock %}
+
+    <div class="footer">
+        <h5 class="copyright">Copyright © Tirus Co • Все права защищены</h5>
+    </div>
+
+</body>
+</html>
